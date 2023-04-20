@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+use App\Command\HelloWorldCommand;
+use Monolog\Logger;
+use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
+use Symfony\Component\Console\Application;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
+require __DIR__ . '/vendor/autoload.php';
+
+// Monologのインスタンスを作成
+$logger = new Logger('app');
+
+// コンソールへのハンドラを追加
+$consoleHandler = new ConsoleHandler();
+$logger->pushHandler($consoleHandler);
+
+$application = new Application();
+
+// コンソールへのハンドラをアプリケーションへ紐付け
+$dispatcher = new EventDispatcher();
+$dispatcher->addSubscriber($consoleHandler);
+$application->setDispatcher($dispatcher);
+
+$application->add(new HelloWorldCommand($logger));
+$application->run();

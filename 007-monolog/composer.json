@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "^6.2",
+        "monolog/monolog": "^3.3",
+        "symfony/monolog-bridge": "^6.2"
+    }
+}
